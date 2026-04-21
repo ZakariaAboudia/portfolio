@@ -1,0 +1,118 @@
+{
+  "metadata": {
+    "title": "Portfolio",
+    "description": "Developer portfolio"
+  },
+  "nav": {
+    "overview": "Overview",
+    "projects": "Projects",
+    "experience": "Experience",
+    "skills": "Skills",
+    "map": "Map",
+    "contact": "Contact",
+    "admin": "Admin",
+    "portfolio": "Portfolio",
+    "portfolioInitial": "P",
+    "more": "More",
+    "moreNavigationItems": "More navigation items",
+    "portfolioNavigation": "Portfolio navigation",
+    "githubRepo": "GitHub",
+    "githubAriaLabel": "View source on GitHub",
+    "adminProjects": "Projects",
+    "adminSkills": "Skills",
+    "adminTimeline": "Timeline"
+  },
+  "theme": {
+    "switchToLight": "Switch to light mode",
+    "switchToDark": "Switch to dark mode"
+  },
+  "demo": {
+    "badge": "Demo mode"
+  },
+  "home": {
+    "title": "Portfolio"
+  },
+  "experience": {
+    "title": "Experience",
+    "empty": "No experience entries yet.",
+    "present": "Present"
+  },
+  "projects": {
+    "title": "Projects",
+    "empty": "No projects yet — check back soon.",
+    "moreTagsLabel": "+{{count}} more"
+  },
+  "overview": {
+    "title": "Portfolio",
+    "statProjects": "Projects",
+    "statCountries": "Countries",
+    "statTechnologies": "Technologies",
+    "statYearsActive": "Years Active",
+    "recentProjects": "Recent Projects",
+    "mapComingSoon": "Map — coming soon",
+    "emptyProjects": "No projects yet — check back soon."
+  },
+  "skills": {
+    "title": "Skills",
+    "ariaLabel": "Skills chart — hover or focus bars for detail",
+    "empty": "No skills data yet."
+  },
+  "map": {
+    "title": "Map",
+    "ariaLabel": "World map showing project locations",
+    "fallback": "Map unavailable — check back soon.",
+    "empty": "No project locations yet."
+  },
+  "contact": {
+    "title": "Contact",
+    "subtitle": "Send a message — I'll reply within 2 days.",
+    "namePlaceholder": "Your name",
+    "emailPlaceholder": "your@email.com",
+    "messagePlaceholder": "Your message...",
+    "submit": "Send message",
+    "success": "Message sent. Expect a reply within 2 days.",
+    "error": "Something went wrong — please try again."
+  },
+  "admin": {
+    "dashboard": "Admin Dashboard",
+    "projects": "Projects",
+    "skills": "Skills",
+    "timeline": "Timeline",
+    "addProject": "Add project",
+    "addSkill": "Add skill",
+    "addTimeline": "Add entry",
+    "editProject": "Edit project",
+    "editSkill": "Edit skill",
+    "editTimeline": "Edit entry",
+    "deleteConfirm": "Are you sure you want to delete this?",
+    "deleteTitle": "Delete",
+    "discard": "Discard changes?",
+    "discardAction": "Discard",
+    "keepEditing": "Keep Editing",
+    "save": "Save",
+    "cancel": "Cancel",
+    "delete": "Delete",
+    "emptyProjects": "No projects added yet.",
+    "addFirstProject": "Add your first project →",
+    "emptySkills": "No skills added yet.",
+    "addFirstSkill": "Add your first skill →",
+    "emptyTimeline": "No timeline entries added yet.",
+    "addFirstTimeline": "Add your first entry →",
+    "noFilterResults": "No items match your filters.",
+    "clearFilters": "Clear filters",
+    "clearAll": "Clear all",
+    "filterSearch": "Search...",
+    "filterRegion": "All regions",
+    "filterTech": "All tech"
+  },
+  "login": {
+    "title": "Admin Login",
+    "signInWithGoogle": "Sign in with Google",
+    "signInWithGitHub": "Sign in with GitHub",
+    "errors": {
+      "unauthorized": "That email address is not authorized to access the admin panel.",
+      "oauthError": "OAuth provider error. Please try again.",
+      "default": "An error occurred during sign-in. Please try again."
+    }
+  }
+}

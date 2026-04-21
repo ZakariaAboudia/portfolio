@@ -1,0 +1,39 @@
+services:
+  portfolio:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: portfolio-dev
+    ports:
+      # Map standard Next.js port (change 3000:5173 if using Vite)
+      - "3000:3000"
+    volumes:
+      # Mount local code to the container for hot-reloading
+      - .:/app
+      # Create an anonymous volume for node_modules so your local OS
+      # doesn't overwrite the Linux-compiled modules in the container
+      - /app/node_modules
+    environment:
+      - NODE_ENV=development
+      - DATABASE_URL=postgresql://portfolio:devpassword@postgres:5432/portfolio_dev
+      # Optional: Forces hot-reload to work reliably if you are using WSL2 or Windows
+      - WATCHPACK_POLLING=true
+      - CHOKIDAR_USEPOLLING=true
+    depends_on:
+      postgres:
+        condition: service_started
+
+  postgres:
+    image: postgres:17-alpine
+    container_name: portfolio-postgres
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    environment:
+      POSTGRES_DB: portfolio_dev
+      POSTGRES_USER: portfolio
+      POSTGRES_PASSWORD: devpassword
+
+volumes:
+  postgres_data:
