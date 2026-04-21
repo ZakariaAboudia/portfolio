@@ -97,7 +97,7 @@ function IconGitHub() {
 async function drawRoughEdge(svg: SVGSVGElement, height: number, strokeColor: string) {
   try {
     const rough = ((await import('roughjs')).default ?? (await import('roughjs'))) as unknown as typeof import('roughjs').default
-    const rc = rough.svg(svg)
+    const rc = rough.svg(svg) as any
     svg.innerHTML = ''
     svg.setAttribute('height', String(height))
     const line = rc.line(1, 4, 1, height - 4, {
@@ -122,7 +122,7 @@ function RoughSeparator() {
     if (!svg) return
     import('roughjs').then(m => {
       const rough = (m.default ?? m) as unknown as typeof import('roughjs').default
-      const rc = rough.svg(svg)
+      const rc = rough.svg(svg) as any
       svg.innerHTML = ''
       const node = rc.line(8, 4, 180, 4, {
         roughness: 1.2, bowing: 0.8,
@@ -133,38 +133,6 @@ function RoughSeparator() {
   }, [])
   return (
     <svg ref={ref} aria-hidden="true" width="100%" height="8" className="my-1 px-2" style={{ overflow: 'visible' }} />
-  )
-}
-
-// ── Sketchy active mark ───────────────────────────────────────────────────
-
-function SketchyActiveMark() {
-  const ref = useRef<SVGSVGElement>(null)
-  useEffect(() => {
-    const svg = ref.current
-    if (!svg) return
-    import('roughjs').then(m => {
-      const rough = (m.default ?? m) as unknown as typeof import('roughjs').default
-      const rc = rough.svg(svg)
-      svg.innerHTML = ''
-      // Rough circle drawn around the icon area
-      const node = rc.circle(14, 14, 26, {
-        roughness: 2.4, bowing: 1.5,
-        stroke: 'var(--accent)', strokeWidth: 1.4,
-        fill: 'var(--accent-muted)', fillStyle: 'solid',
-        seed: 17,
-      })
-      svg.appendChild(node as unknown as Node)
-    }).catch(() => {})
-  }, [])
-  return (
-    <svg
-      ref={ref}
-      aria-hidden="true"
-      width="28" height="28"
-      className="absolute left-2 top-1/2 -translate-y-1/2"
-      style={{ overflow: 'visible', pointerEvents: 'none' }}
-    />
   )
 }
 
@@ -182,21 +150,19 @@ function NavItem({
       title={label}
       aria-current={isActive ? 'page' : undefined}
       className={`
-        relative flex items-center gap-3
+        flex items-center justify-center lg:justify-start gap-3
         px-3 py-2.5 mx-2 rounded
         text-sm font-medium
         transition-colors select-none
         min-h-[44px]
         ${isActive
-          ? 'bg-accent-muted text-accent'
+          ? 'text-accent'
           : 'text-text-secondary hover:text-text-primary hover:bg-bg-elevated'
         }
       `}
     >
-      {/* Sketchy amber left-edge mark when active */}
-      {isActive && <SketchyActiveMark />}
       <span className="shrink-0"><Icon /></span>
-      <span className="hidden lg:block truncate">{label}</span>
+      <span className="hidden lg:block truncate">{isActive ? `— ${label}` : label}</span>
     </Link>
   )
 }
@@ -302,10 +268,10 @@ export default function AdminNavSidebar() {
           hidden md:flex flex-col
           md:w-16 lg:w-60
           shrink-0 sticky top-0 h-screen
-          bg-bg-surface
+          bg-transparent
           overflow-hidden
         "
-        style={{ borderRight: '1px solid var(--border-subtle)' }}
+        style={{}}
       >
         {/* SVG defs: hand-drawn filter applied to nav contents */}
         <svg aria-hidden="true" width="0" height="0" className="absolute">
@@ -317,14 +283,6 @@ export default function AdminNavSidebar() {
           </defs>
         </svg>
 
-        {/* Rough right-edge SVG (overlays CSS border once roughjs loaded) */}
-        <svg
-          ref={svgRef}
-          aria-hidden="true"
-          width="2"
-          className="absolute right-0 top-0 pointer-events-none"
-          style={{ overflow: 'visible' }}
-        />
 
         {/* All nav content runs through the sketchy filter */}
         <div style={{ filter: 'url(#sketchy-nav)' }} className="flex flex-col flex-1 overflow-hidden">
@@ -337,24 +295,44 @@ export default function AdminNavSidebar() {
           </div>
 
           {/* Primary nav */}
-          <div className="flex-1 overflow-y-auto py-2 flex flex-col gap-0.5">
+          <div className="flex-1 overflow-y-auto py-2 flex flex-col gap-0.5 justify-center">
             {PRIMARY_NAV.map(item => (
               <NavItem key={item.href} {...item} isActive={isActive(item)} />
             ))}
 
-            {/* Rough separator */}
-            <RoughSeparator />
-
             {/* Admin */}
             <NavItem {...ADMIN_NAV} isActive={adminActive} />
-            {isOnAdminSection && ADMIN_SUB_NAV.map(item => (
-              <NavItem key={item.href} {...item} isActive={isActive(item)} />
-            ))}
+            {isOnAdminSection && (
+              <div className="ml-3 opacity-70 flex flex-col gap-0.5">
+                {ADMIN_SUB_NAV.map(item => (
+                  <Link
+                    key={item.href}
+                    href={item.href}
+                    title={item.label}
+                    aria-current={isActive(item) ? 'page' : undefined}
+                    className={`
+                      flex items-center justify-center lg:justify-start gap-2.5
+                      px-2 py-1.5 mx-2 rounded
+                      text-xs font-medium
+                      transition-colors select-none
+                      min-h-[36px]
+                      ${isActive(item)
+                        ? 'text-accent'
+                        : 'text-text-secondary hover:text-text-primary hover:bg-bg-elevated'
+                      }
+                    `}
+                  >
+                    <span className="shrink-0 scale-90"><item.Icon /></span>
+                    <span className="hidden lg:block truncate">{isActive(item) ? `— ${item.label}` : item.label}</span>
+                  </Link>
+                ))}
+              </div>
+            )}
           </div>
 
           {/* GitHub link — bottom of sidebar, only if env var set */}
           {process.env.NEXT_PUBLIC_GITHUB_URL && (
-            <div className="shrink-0 px-2 py-3 border-t border-border-subtle">
+            <div className="shrink-0 px-2 py-3">
               <a
                 href={process.env.NEXT_PUBLIC_GITHUB_URL}
                 target="_blank"

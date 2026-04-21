@@ -48,7 +48,7 @@ export default function SkillChip({ name, level }: SkillChipProps) {
       try {
         const m = await import('roughjs')
         const rough = (m.default ?? m) as unknown as typeof import('roughjs').default
-        const rc = rough.svg(svg)
+        const rc = rough.svg(svg) as any
         svg.innerHTML = ''
         const node = rc.rectangle(1, 1, width - 2, height - 2, {
           roughness: cfg.roughness,

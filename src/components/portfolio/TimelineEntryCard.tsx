@@ -32,7 +32,7 @@ function RoughTick({ seed }: { seed: number }) {
     if (!svg) return
     import('roughjs').then(m => {
       const rough = (m.default ?? m) as unknown as typeof import('roughjs').default
-      const rc = rough.svg(svg)
+      const rc = rough.svg(svg) as any
       svg.innerHTML = ''
       // Horizontal tick on the ruler
       const tick = rc.line(0, 6, 10, 6, {
@@ -58,7 +58,7 @@ function RoughVerticalRule({ id }: { id: string }) {
       svg.setAttribute('height', String(h))
       import('roughjs').then(m => {
         const rough = (m.default ?? m) as unknown as typeof import('roughjs').default
-        const rc = rough.svg(svg)
+        const rc = rough.svg(svg) as any
         svg.innerHTML = ''
         const line = rc.line(4, 0, 4, h, {
           roughness: 1.2, bowing: 1.5,

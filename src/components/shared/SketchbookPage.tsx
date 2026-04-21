@@ -24,7 +24,7 @@ export default function SketchbookPage({ children, annotation = 'size & weight =
     try {
       const m = await import('roughjs')
       const rough = (m.default ?? m) as unknown as typeof import('roughjs').default
-      const rc = rough.svg(svg)
+      const rc = rough.svg(svg) as any
       svg.innerHTML = ''
 
       // Outer page border — heavy, characterful

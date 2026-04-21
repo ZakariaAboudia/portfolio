@@ -21,7 +21,7 @@ export default async function Home() {
       <PageHeading>{t('title')}</PageHeading>
 
       {/* Annotation-style stat row */}
-      <div className="grid grid-cols-2 md:grid-cols-4 gap-8 py-4 border-y border-border-subtle">
+      <div className="grid grid-cols-2 md:grid-cols-4 gap-8 py-4">
         <StatCard label={t('statProjects')} value={stats.projects} ariaLabel={`${stats.projects} ${t('statProjects')}`} />
         <StatCard label={t('statCountries')} value={stats.countries} ariaLabel={`${stats.countries} ${t('statCountries')}`} />
         <StatCard label={t('statTechnologies')} value={stats.technologies} ariaLabel={`${stats.technologies} ${t('statTechnologies')}`} />

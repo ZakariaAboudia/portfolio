@@ -25,7 +25,7 @@ export default function RoughDots({ level, max = 5, size = 8, gap = 4 }: RoughDo
 
     import('roughjs').then(m => {
       const rough = (m.default ?? m) as unknown as typeof import('roughjs').default
-      const rc = rough.svg(svg)
+      const rc = rough.svg(svg) as any
       svg.innerHTML = ''
       for (let i = 0; i < max; i++) {
         const cx = i * (size + gap) + size / 2

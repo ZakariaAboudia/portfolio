@@ -30,7 +30,7 @@ export default function RoughUnderline({ children, className = '', seed }: Rough
       try {
         const m = await import('roughjs')
         const rough = (m.default ?? m) as unknown as typeof import('roughjs').default
-        const rc = rough.svg(svg)
+        const rc = rough.svg(svg) as any
         svg.innerHTML = ''
         const node = rc.line(0, 3, width, 3, {
           roughness: 1.4,

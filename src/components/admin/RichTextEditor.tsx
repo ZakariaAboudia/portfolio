@@ -42,7 +42,7 @@ export default function RichTextEditor({ value, onChange, placeholder, hasError 
   useEffect(() => {
     if (!editor) return
     const current = editor.getHTML()
-    if (value !== current) editor.commands.setContent(value || '', false)
+    if (value !== current) editor.commands.setContent(value || '', { emitUpdate: false })
   }, [value, editor])
 
   async function handleImageUpload(file: File) {

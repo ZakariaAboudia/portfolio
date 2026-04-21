@@ -40,7 +40,7 @@ async function drawRoughRect(
   try {
     const roughModule = await import('roughjs')
     const rough = (roughModule.default ?? roughModule) as unknown as typeof import('roughjs').default
-    const rc = rough.svg(svg)
+    const rc = rough.svg(svg) as any
     svg.innerHTML = ''
     const node = rc.rectangle(2, 2, width - 4, height - 4, {
       roughness,

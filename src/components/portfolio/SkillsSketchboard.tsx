@@ -27,7 +27,7 @@ function RoughCategoryLabel({ label, index }: { label: string; index: number }) 
       try {
         const m = await import('roughjs')
         const rough = (m.default ?? m) as unknown as typeof import('roughjs').default
-        const rc = rough.svg(svg)
+        const rc = rough.svg(svg) as any
         svg.innerHTML = ''
         // Underline stroke under category name
         const node = rc.line(0, 3, width + 16, 3, {
