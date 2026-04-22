@@ -3,6 +3,7 @@
 import { useEffect, useState } from 'react'
 import ProjectSchematic from './ProjectSchematic'
 import type { SchematicData } from './ProjectSchematic'
+import SketchLoader from './SketchLoader'
 
 interface Props {
   projectId: string
@@ -55,9 +56,12 @@ export default function ProjectSchematicLoader({ projectId, seed, className }: P
 
   if (state.status === 'loading') {
     return (
+      // <div className="w-full flex flex-col gap-1 font-mono text-xs" style={{ color: 'var(--accent)', opacity: 0.7 }}>
+      //   <span>&gt; PARSING_PROJECT_STRUCTURE...</span>
+      //   <span>&gt; GENERATING_SCHEMATIC...</span>
+      // </div>
       <div className="w-full flex flex-col gap-1 font-mono text-xs" style={{ color: 'var(--accent)', opacity: 0.7 }}>
-        <span>&gt; PARSING_PROJECT_STRUCTURE...</span>
-        <span>&gt; GENERATING_SCHEMATIC...</span>
+        <SketchLoader label="> GENERATING_SCHEMATIC....." />
       </div>
     )
   }
