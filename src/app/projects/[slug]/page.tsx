@@ -111,26 +111,6 @@ export default async function ProjectDetailPage({ params }: Props) {
       {/* Right — specimen panel (lg+) */}
       <aside className="hidden lg:flex w-[40%] sticky top-0 h-screen flex-col p-6 border-l border-border-subtle overflow-hidden">
 
-        {/* Watermark */}
-        <div
-          className="absolute inset-0 flex items-center justify-center overflow-hidden pointer-events-none select-none"
-          aria-hidden="true"
-        >
-          <span
-            className="font-mono font-bold text-text-primary"
-            style={{
-              fontSize: '11rem',
-              lineHeight: 1,
-              opacity: 0.03,
-              transform: 'rotate(-20deg)',
-              letterSpacing: '-0.06em',
-              whiteSpace: 'nowrap',
-            }}
-          >
-            {title}
-          </span>
-        </div> 
-
         {/* Corner brackets */}
         <svg
           className="absolute inset-0 w-full h-full pointer-events-none"
