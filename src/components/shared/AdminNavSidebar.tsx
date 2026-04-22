@@ -163,8 +163,17 @@ function NavItem({
         }
       `}
     >
-      <span className="shrink-0"><Icon /></span>
-      <span className="hidden lg:block truncate">{isActive ? `— ${label}` : label}</span>
+      <span className="relative shrink-0">
+        <Icon />
+        {badge && (
+          <span
+            className="absolute -top-1 -right-1 w-2 h-2 rounded-full animate-pulse"
+            style={{ background: 'var(--accent)', boxShadow: '0 0 4px var(--accent)' }}
+            aria-hidden="true"
+          />
+        )}
+      </span>
+      <span className="hidden lg:block truncate">{label}</span>
     </Link>
   )
 }
