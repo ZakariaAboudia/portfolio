@@ -4,6 +4,7 @@ import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { useTranslations } from 'next-intl'
 import { useRef, useEffect, useCallback, useState } from 'react'
+import SystemTelemetry from './SystemTelemetry'
 
 // ── Icons ─────────────────────────────────────────────────────────────────
 
@@ -371,6 +372,9 @@ export default function AdminNavSidebar() {
               <NavItem key={item.href} {...item} isActive={isActive(item)} />
             ))}
           </div>
+
+          {/* Telemetry Widget */}
+          <SystemTelemetry />
 
           {/* GitHub link — bottom of sidebar, only if env var set */}
           {process.env.NEXT_PUBLIC_GITHUB_URL && (

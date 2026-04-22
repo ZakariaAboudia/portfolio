@@ -17,7 +17,7 @@ export default async function SkillsPage() {
         {groups.length === 0 ? (
           <EmptyState message={t('empty')} />
         ) : (
-          <SketchyChartDynamic groups={groups} ariaLabel={t('ariaLabel')} />
+          <SketchyChartDynamic groups={groups} />
         )}
       </SketchbookPage>
     </main>

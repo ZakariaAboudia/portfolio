@@ -17,8 +17,8 @@ const roughPinSource = fs.readFileSync(
   path.join(root, 'src/components/portfolio/RoughPin.tsx'),
   'utf-8'
 )
-const mapWithPinsSource = fs.readFileSync(
-  path.join(root, 'src/components/portfolio/MapWithPins.tsx'),
+const roughWorldMapSource = fs.readFileSync(
+  path.join(root, 'src/components/portfolio/RoughWorldMap.tsx'),
   'utf-8'
 )
 const mapWithPinsDynamicSource = fs.readFileSync(
@@ -95,31 +95,31 @@ describe('RoughPin.tsx — source checks', () => {
   })
 })
 
-// ── MapWithPins.tsx ────────────────────────────────────────────────────────
+// ── RoughWorldMap.tsx ──────────────────────────────────────────────────────
 
-describe('MapWithPins.tsx — source checks', () => {
+describe('RoughWorldMap.tsx — source checks', () => {
   it('exists', () => {
-    expect(fs.existsSync(path.join(root, 'src/components/portfolio/MapWithPins.tsx'))).toBe(true)
+    expect(fs.existsSync(path.join(root, 'src/components/portfolio/RoughWorldMap.tsx'))).toBe(true)
   })
 
   it('has role="img"', () => {
-    expect(mapWithPinsSource).toContain('role="img"')
+    expect(roughWorldMapSource).toContain('role="img"')
   })
 
   it('has sr-only visually-hidden list', () => {
-    expect(mapWithPinsSource).toMatch(/sr-only|visually-hidden/)
+    expect(roughWorldMapSource).toMatch(/sr-only|visually-hidden/)
   })
 
   it('uses Tooltip', () => {
-    expect(mapWithPinsSource).toContain('Tooltip')
+    expect(roughWorldMapSource).toContain('Tooltip')
   })
 
-  it('imports from react-map-gl', () => {
-    expect(mapWithPinsSource).toContain('react-map-gl')
+  it('uses roughjs', () => {
+    expect(roughWorldMapSource).toContain("import('roughjs')")
   })
 
   it('uses prefers-reduced-motion', () => {
-    expect(mapWithPinsSource).toContain('prefers-reduced-motion')
+    expect(roughWorldMapSource).toContain('prefers-reduced-motion')
   })
 })
 

@@ -1,4 +1,16 @@
 const REGION_COORDS: Record<string, [number, number]> = {
+  // Broad regions
+  'North America': [-96, 38],
+  'South America': [-55, -15],
+  'Europe': [15, 50],
+  'EU Public Sector': [4.35, 50.85],
+  'MENA': [40, 28],
+  'Sub-Saharan Africa': [25, 0],
+  'East Asia': [115, 35],
+  'South Asia': [78, 22],
+  'Southeast Asia': [110, 5],
+  'Oceania': [134, -25],
+  // Countries
   Netherlands: [4.9, 52.37],
   France: [2.35, 48.85],
   'United States': [-98, 38.9],

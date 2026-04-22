@@ -4,16 +4,17 @@ import PageHeading from '@/components/shared/PageHeading'
 import StatCard from '@/components/portfolio/StatCard'
 import OverviewProjectsList from '@/components/portfolio/OverviewProjectsList'
 import MapWithPinsDynamic from '@/components/portfolio/MapWithPinsDynamic'
-import { getOverviewStats, getRecentProjects } from '@/lib/overview-stats'
+import { getOverviewStats, getRecentProjects, getAllProjectsList } from '@/lib/overview-stats'
 import { getMapPins } from '@/lib/map-pins'
 
 export default async function Home() {
-  const [locale, t, stats, recentProjects, mapPins] = await Promise.all([
+  const [locale, t, stats, recentProjects, mapPins, allProjects] = await Promise.all([
     getLocale(),
     getTranslations('overview'),
     getOverviewStats(),
     getRecentProjects(5),
     getMapPins(),
+    getAllProjectsList(await getLocale()),
   ])
 
   return (
@@ -38,6 +39,7 @@ export default async function Home() {
         />
         <MapWithPinsDynamic
             pins={mapPins}
+            projects={allProjects}
             ariaLabel="World map showing project locations"
             fallbackMessage="Map unavailable — check back soon."
             className="min-h-[200px]"

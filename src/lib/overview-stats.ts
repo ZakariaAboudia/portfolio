@@ -1,4 +1,6 @@
 import { prisma } from './prisma'
+import { t } from '@/lib/i18n'
+import type { TranslatableField } from '@/types/prisma'
 
 export async function getOverviewStats() {
   const [projectCount, allProjects, earliestEntry] = await Promise.all([
@@ -29,4 +31,17 @@ export async function getRecentProjects(limit = 5) {
     take: limit,
     select: { id: true, slug: true, title: true, clientRegion: true },
   })
+}
+
+export async function getAllProjectsList(locale: string) {
+  const projects = await prisma.project.findMany({
+    where: { published: true },
+    orderBy: { createdAt: 'desc' },
+    select: { id: true, slug: true, title: true, clientRegion: true },
+  })
+  
+  return projects.map(p => ({
+    ...p,
+    titleStr: t(p.title as unknown as TranslatableField, locale)
+  }))
 }
