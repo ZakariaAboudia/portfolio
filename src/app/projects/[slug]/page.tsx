@@ -8,6 +8,7 @@ import type { TranslatableField } from '@/types/prisma'
 import RoughUnderline from '@/components/shared/RoughUnderline'
 import RoughCard from '@/components/shared/RoughCard'
 import ProjectIllustration from '@/components/shared/ProjectIllustration'
+import ProjectSchematicLoader from '@/components/shared/ProjectSchematicLoader'
 
 interface Props {
   params: Promise<{ slug: string }>
@@ -53,7 +54,7 @@ export default async function ProjectDetailPage({ params }: Props) {
     <div className="flex">
       {/* Left — notebook content */}
       <main
-        className="flex-1 p-6 max-w-2xl flex flex-col gap-8"
+        className="w-full p-6 flex flex-col gap-8 md:w-[60%]"
         style={{
           backgroundImage: 'repeating-linear-gradient(to bottom, transparent, transparent 27px, var(--border-subtle) 28px)',
           backgroundAttachment: 'local',
@@ -108,7 +109,7 @@ export default async function ProjectDetailPage({ params }: Props) {
       </main>
 
       {/* Right — specimen panel (lg+) */}
-      <aside className="hidden lg:flex w-80 xl:w-96 sticky top-0 h-screen flex-col p-6 border-l border-border-subtle overflow-hidden">
+      <aside className="hidden lg:flex w-[40%] sticky top-0 h-screen flex-col p-6 border-l border-border-subtle overflow-hidden">
 
         {/* Watermark */}
         <div
@@ -128,7 +129,7 @@ export default async function ProjectDetailPage({ params }: Props) {
           >
             {title}
           </span>
-        </div>
+        </div> 
 
         {/* Corner brackets */}
         <svg
@@ -147,7 +148,7 @@ export default async function ProjectDetailPage({ params }: Props) {
         </svg>
 
         {/* Illustration */}
-        <div className="flex-1 flex flex-col items-center justify-center relative z-10">
+        <div className="flex-1 flex flex-col relative z-10 min-h-0">
           {project.imageUrl ? (
             <RoughCard roughness={1.8} className="w-full">
               <div
@@ -167,20 +168,20 @@ export default async function ProjectDetailPage({ params }: Props) {
               </div>
             </RoughCard>
           ) : (
-            <ProjectIllustration
+            <ProjectSchematicLoader
+              projectId={project.id}
               seed={seed}
-              techCount={project.techStack.length}
-              className="w-full opacity-80"
+              className="w-full opacity-90"
             />
           )}
         </div>
 
         {/* Metadata annotations */}
         <div className="relative z-10 flex flex-col gap-3 font-mono text-xs text-text-muted border-t border-border-subtle pt-4">
-          <div>
+          {/* <div>
             <p className="uppercase tracking-widest opacity-50">— field entry</p>
             <p className="mt-1 text-accent">{dateLabel}</p>
-          </div>
+          </div> */}
           {project.clientRegion && (
             <div>
               <p className="uppercase tracking-widest opacity-50">— origin</p>

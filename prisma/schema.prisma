@@ -23,6 +23,7 @@ model Project {
   techStack    String[] @map("tech_stack")
   clientRegion String?  @map("client_region")
   imageUrl     String?  @map("image_url")
+  schematicData Json?   @map("schematic_data")
   published    Boolean  @default(false) @map("published")
   createdAt    DateTime @default(now()) @map("created_at")
   updatedAt    DateTime @updatedAt @map("updated_at")
