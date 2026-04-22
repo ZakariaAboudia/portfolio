@@ -158,10 +158,18 @@ export default async function ProjectDetailPage({ params }: Props) {
 
         {/* Metadata annotations */}
         <div className="relative z-10 flex flex-col gap-3 font-mono text-xs text-text-muted border-t border-border-subtle pt-4">
-          {/* <div>
-            <p className="uppercase tracking-widest opacity-50">— field entry</p>
-            <p className="mt-1 text-accent">{dateLabel}</p>
-          </div> */}
+          {!project.imageUrl && (
+            <div>
+              <p className="uppercase tracking-widest opacity-50 flex items-center gap-2">
+                — live generation
+                <span className="flex h-1.5 w-1.5 relative">
+                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-accent opacity-75"></span>
+                  <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-accent"></span>
+                </span>
+              </p>
+              <p className="mt-1 text-accent">Real-time AI schematic inference</p>
+            </div>
+          )}
           {project.clientRegion && (
             <div>
               <p className="uppercase tracking-widest opacity-50">— origin</p>
