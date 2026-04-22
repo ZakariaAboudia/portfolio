@@ -58,7 +58,16 @@ export default function ProjectForm({ initialData, onSave, onCancel, saving }: P
     clientRegion: initialData?.clientRegion ?? '',
     published: initialData?.published ?? false,
   })
+  const [slugLocked, setSlugLocked] = useState(!!initialData)
   const [errors, setErrors] = useState<Partial<Record<keyof ProjectFormData, string>>>({})
+
+  function slugify(text: string) {
+    return text.toLowerCase().trim()
+      .replace(/[^a-z0-9\s-]/g, '')
+      .replace(/\s+/g, '-')
+      .replace(/-+/g, '-')
+      .replace(/^-|-$/g, '')
+  }
 
   function validate(field: keyof ProjectFormData) {
     const errs = { ...errors }
@@ -74,7 +83,13 @@ export default function ProjectForm({ initialData, onSave, onCancel, saving }: P
   const isValid = !!form.slug.trim() && !!form.titleEn.trim() && !!form.descriptionEn.trim()
 
   function set<K extends keyof ProjectFormData>(key: K, value: ProjectFormData[K]) {
-    setForm(prev => ({ ...prev, [key]: value }))
+    setForm(prev => {
+      const next = { ...prev, [key]: value }
+      if (key === 'titleEn' && !slugLocked) {
+        next.slug = slugify(value as string)
+      }
+      return next
+    })
   }
 
   async function handleSubmit(e: React.FormEvent) {
@@ -102,21 +117,6 @@ export default function ProjectForm({ initialData, onSave, onCancel, saving }: P
 
   return (
     <form onSubmit={handleSubmit} className="flex flex-col gap-4">
-      <div>
-        <Label.Root htmlFor="pf-slug" className="block text-xs font-mono text-text-muted mb-1">Slug *</Label.Root>
-        <input
-          id="pf-slug"
-          value={form.slug}
-          onChange={e => set('slug', e.target.value)}
-          onBlur={() => validate('slug')}
-          className={inputClass(errors.slug)}
-          style={errors.slug ? errorFieldStyle : fieldStyle}
-          placeholder="my-project"
-          aria-describedby={errors.slug ? 'pf-slug-err' : undefined}
-        />
-        {errors.slug && <p id="pf-slug-err" className="text-xs font-mono text-error mt-0.5">{errors.slug}</p>}
-      </div>
-
       <LocaleTabPanel
         enContent={
           <div className="flex flex-col gap-3">
@@ -191,6 +191,27 @@ export default function ProjectForm({ initialData, onSave, onCancel, saving }: P
           </div>
         }
       />
+
+      <div>
+        <Label.Root htmlFor="pf-slug" className="block text-xs font-mono text-text-muted mb-1">
+          Slug *
+          {!slugLocked && <span className="ml-2 opacity-50">— auto from title</span>}
+        </Label.Root>
+        <input
+          id="pf-slug"
+          value={form.slug}
+          onChange={e => {
+            setSlugLocked(true)
+            set('slug', e.target.value)
+          }}
+          onBlur={() => validate('slug')}
+          className={inputClass(errors.slug)}
+          style={errors.slug ? errorFieldStyle : fieldStyle}
+          placeholder="auto-generated from title"
+          aria-describedby={errors.slug ? 'pf-slug-err' : undefined}
+        />
+        {errors.slug && <p id="pf-slug-err" className="text-xs font-mono text-error mt-0.5">{errors.slug}</p>}
+      </div>
 
       <TagInput
         label="Tech stack"

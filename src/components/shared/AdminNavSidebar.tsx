@@ -80,6 +80,7 @@ interface NavItemDef {
   label: string
   Icon: () => React.ReactElement
   exactMatch?: boolean
+  badge?: boolean
 }
 
 // ── GitHub icon ───────────────────────────────────────────────────────────
@@ -175,6 +176,7 @@ function NavItem({
   label,
   Icon,
   isActive,
+  badge,
 }: NavItemDef & { isActive: boolean }) {
   return (
     <Link
@@ -193,9 +195,17 @@ function NavItem({
         }
       `}
     >
-      {/* Sketchy amber left-edge mark when active */}
       {isActive && <SketchyActiveMark />}
-      <span className="shrink-0"><Icon /></span>
+      <span className="relative shrink-0">
+        <Icon />
+        {badge && (
+          <span
+            className="absolute -top-1 -right-1 w-2 h-2 rounded-full animate-pulse"
+            style={{ background: 'var(--accent)', boxShadow: '0 0 4px var(--accent)' }}
+            aria-hidden="true"
+          />
+        )}
+      </span>
       <span className="hidden lg:block truncate">{label}</span>
     </Link>
   )
@@ -208,6 +218,7 @@ function MobileNavItem({
   label,
   Icon,
   isActive,
+  badge,
 }: NavItemDef & { isActive: boolean }) {
   return (
     <Link
@@ -221,7 +232,16 @@ function MobileNavItem({
         ${isActive ? 'text-accent' : 'text-text-secondary'}
       `}
     >
-      <Icon />
+      <span className="relative">
+        <Icon />
+        {badge && (
+          <span
+            className="absolute -top-1 -right-1 w-2 h-2 rounded-full animate-pulse"
+            style={{ background: 'var(--accent)', boxShadow: '0 0 4px var(--accent)' }}
+            aria-hidden="true"
+          />
+        )}
+      </span>
       <span className="leading-none">{label}</span>
     </Link>
   )
@@ -346,7 +366,7 @@ export default function AdminNavSidebar() {
             <RoughSeparator />
 
             {/* Admin */}
-            <NavItem {...ADMIN_NAV} isActive={adminActive} />
+            <NavItem {...ADMIN_NAV} isActive={adminActive} badge={!isOnAdminSection} />
             {isOnAdminSection && ADMIN_SUB_NAV.map(item => (
               <NavItem key={item.href} {...item} isActive={isActive(item)} />
             ))}
@@ -433,7 +453,16 @@ export default function AdminNavSidebar() {
                       ${isActive(item) ? 'text-accent' : 'text-text-secondary hover:text-text-primary hover:bg-bg-subtle'}
                     `}
                   >
-                    <item.Icon />
+                    <span className="relative">
+                      <item.Icon />
+                      {item.href === '/admin' && !isOnAdminSection && (
+                        <span
+                          className="absolute -top-1 -right-1 w-2 h-2 rounded-full animate-pulse"
+                          style={{ background: 'var(--accent)', boxShadow: '0 0 4px var(--accent)' }}
+                          aria-hidden="true"
+                        />
+                      )}
+                    </span>
                     <span>{item.label}</span>
                   </Link>
                 ))}
