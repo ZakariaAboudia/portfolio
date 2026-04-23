@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useTransition } from 'react'
+import { useState, useTransition, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
 import * as Dialog from '@radix-ui/react-dialog'
 import * as AlertDialog from '@radix-ui/react-alert-dialog'
@@ -23,6 +23,7 @@ export default function TimelineList({ entries: initialEntries }: TimelineListPr
   const router = useRouter()
   const [, startTransition] = useTransition()
   const [entries, setEntries] = useState<TimelineEntry[]>(initialEntries)
+  useEffect(() => { setEntries(initialEntries) }, [initialEntries])
   const [editTarget, setEditTarget] = useState<TimelineEntry | null>(null)
   const [addOpen, setAddOpen] = useState(false)
   const [deleteTarget, setDeleteTarget] = useState<TimelineEntry | null>(null)

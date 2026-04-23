@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useTransition } from 'react'
+import { useState, useTransition, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
 import * as Dialog from '@radix-ui/react-dialog'
 import * as AlertDialog from '@radix-ui/react-alert-dialog'
@@ -17,6 +17,7 @@ export default function SkillList({ skills: initialSkills }: SkillListProps) {
   const router = useRouter()
   const [, startTransition] = useTransition()
   const [skills, setSkills] = useState<Skill[]>(initialSkills)
+  useEffect(() => { setSkills(initialSkills) }, [initialSkills])
   const [editTarget, setEditTarget] = useState<Skill | null>(null)
   const [addOpen, setAddOpen] = useState(false)
   const [deleteTarget, setDeleteTarget] = useState<Skill | null>(null)

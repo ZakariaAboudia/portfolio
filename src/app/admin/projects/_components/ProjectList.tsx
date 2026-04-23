@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useTransition } from 'react'
+import { useState, useTransition, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
 import * as Dialog from '@radix-ui/react-dialog'
 import * as AlertDialog from '@radix-ui/react-alert-dialog'
@@ -23,6 +23,7 @@ export default function ProjectList({ projects: initialProjects }: ProjectListPr
   const router = useRouter()
   const [, startTransition] = useTransition()
   const [projects, setProjects] = useState<Project[]>(initialProjects)
+  useEffect(() => { setProjects(initialProjects) }, [initialProjects])
   const [editTarget, setEditTarget] = useState<Project | null>(null)
   const [addOpen, setAddOpen] = useState(false)
   const [deleteTarget, setDeleteTarget] = useState<Project | null>(null)
