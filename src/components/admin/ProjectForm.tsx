@@ -6,6 +6,7 @@ import LocaleTabPanel from './LocaleTabPanel'
 import TagInput from './TagInput'
 import RichTextEditor from './RichTextEditor'
 import type { TranslatableField } from '@/types/prisma'
+import { REGION_OPTIONS } from '@/lib/region-coords'
 
 interface ProjectFormData {
   slug: string
@@ -221,14 +222,16 @@ export default function ProjectForm({ initialData, onSave, onCancel, saving }: P
 
       <div>
         <Label.Root htmlFor="pf-region" className="block text-xs font-mono text-text-muted mb-1">Client region</Label.Root>
-        <input
+        <select
           id="pf-region"
           value={form.clientRegion}
           onChange={e => set('clientRegion', e.target.value)}
           className={inputClass()}
           style={fieldStyle}
-          placeholder="e.g. Europe, North America"
-        />
+        >
+          <option value="">— none —</option>
+          {REGION_OPTIONS.map(r => <option key={r} value={r}>{r}</option>)}
+        </select>
       </div>
 
       <div className="flex items-center gap-2">

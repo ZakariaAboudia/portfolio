@@ -33,6 +33,8 @@ const REGION_COORDS: Record<string, [number, number]> = {
   'New Zealand': [174.76, -36.85],
 }
 
+export const REGION_OPTIONS = Object.keys(REGION_COORDS)
+
 export function getRegionCoords(region: string): [number, number] | null {
   return REGION_COORDS[region] ?? null
 }
