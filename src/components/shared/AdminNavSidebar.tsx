@@ -82,6 +82,7 @@ interface NavItemDef {
   Icon: () => React.ReactElement
   exactMatch?: boolean
   badge?: boolean
+  className?: string
 }
 
 // ── GitHub icon ───────────────────────────────────────────────────────────
@@ -178,6 +179,7 @@ function NavItem({
   Icon,
   isActive,
   badge,
+  className,
 }: NavItemDef & { isActive: boolean }) {
   return (
     <Link
@@ -194,6 +196,7 @@ function NavItem({
           ? 'bg-accent-muted text-accent'
           : 'text-text-secondary hover:text-text-primary hover:bg-bg-elevated'
         }
+      ${className}
       `}
     >
       {isActive && <SketchyActiveMark />}
@@ -369,7 +372,7 @@ export default function AdminNavSidebar() {
             {/* Admin */}
             <NavItem {...ADMIN_NAV} isActive={adminActive} badge={!isOnAdminSection} />
             {isOnAdminSection && ADMIN_SUB_NAV.map(item => (
-              <NavItem key={item.href} {...item} isActive={isActive(item)} />
+              <NavItem key={item.href} {...item} isActive={isActive(item)} className='pl-9' />
             ))}
           </div>
 
