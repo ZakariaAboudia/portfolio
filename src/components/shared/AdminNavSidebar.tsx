@@ -264,7 +264,7 @@ export default function AdminNavSidebar() {
     { href: '/projects',   label: t('projects'),   Icon: IconProjects },
     { href: '/experience', label: t('experience'), Icon: IconExperience },
     { href: '/skills',     label: t('skills'),     Icon: IconSkills },
-    { href: '/map',        label: t('map'),         Icon: IconMap },
+    // { href: '/map',        label: t('map'),         Icon: IconMap },
     { href: '/contact',    label: t('contact'),    Icon: IconContact },
   ]
 
