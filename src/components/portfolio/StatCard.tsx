@@ -18,14 +18,14 @@ function RoughLeaderLine() {
       const rough = (m.default ?? m) as unknown as typeof import('roughjs').default
       const rc = rough.svg(svg)
       svg.innerHTML = ''
-      const node = rc.line(8, 0, 8, 20, {
-        roughness: 1.6, bowing: 1.2,
-        stroke: 'var(--accent)', strokeWidth: 1.5, seed: 3,
+      const node = rc.line(0, 10, 40, 10, {
+        roughness: 1.4, bowing: 0,
+        stroke: 'var(--accent)', strokeWidth: 2, seed: 3,
       })
       svg.appendChild(node as unknown as Node)
-    }).catch(() => {})
+    }).catch(() => { })
   }, [])
-  return <svg ref={ref} aria-hidden="true" width="16" height="20" style={{ overflow: 'visible' }} />
+  return <svg ref={ref} aria-hidden="true" width="40" height="20" style={{ overflow: 'visible' }} className="my-1" />
 }
 
 export default function StatCard({ label, value, ariaLabel, subLabel }: StatCardProps) {
